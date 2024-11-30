@@ -37,9 +37,12 @@ function App() {
 
   // Signup function
   async function signup(formData) {
-    const newToken = await JoblyApi.signup(formData);
-    setToken(newToken);
+    const token = await JoblyApi.registerUser(formData);
+    JoblyApi.setToken(token);
+    const currentUser = await JoblyApi.getCurrentUser(formData.username);
+    setCurrentUser(currentUser);
   }
+  
 
   // Logout function
   function logout() {

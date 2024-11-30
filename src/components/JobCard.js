@@ -1,12 +1,18 @@
 import React from "react";
 
 function JobCard({ job }) {
+  if (!job) {
+    return <div>No job data available</div>; // Handle case when job is undefined
+  }
+
+  const { title, companyName, salary, equity } = job;
+
   return (
-    <div>
-      <h3>{job.title}</h3>
-      <p>Company: {job.companyName}</p>
-      <p>Salary: {job.salary || "Not specified"}</p>
-      <p>Equity: {job.equity || "None"}</p>
+    <div className="JobCard">
+      <h3>{title || "Untitled Position"}</h3>
+      <p>Company: {companyName || "Unknown Company"}</p>
+      <p>Salary: {salary !== null ? `$${salary}` : "Not specified"}</p>
+      <p>Equity: {equity !== null ? equity : "None"}</p>
     </div>
   );
 }
