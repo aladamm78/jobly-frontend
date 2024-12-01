@@ -88,6 +88,12 @@ class JoblyApi {
     JoblyApi.token = newToken;
     localStorage.setItem("token", newToken);
   }
+
+  // In JoblyApi.js
+  static async updateProfile(username, data) {
+    const res = await this.request(`users/${username}`, data, "patch");
+    return res.user;
+  }
 }
 
 // Dynamically load token from localStorage on app start

@@ -5,6 +5,7 @@ import AppRoutes from "./Routes";
 import JoblyApi from "./api"; 
 import { jwtDecode } from "jwt-decode";
 import UserContext from "./UserContext";
+import Routes from "./Routes";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -61,7 +62,7 @@ function App() {
     <UserContext.Provider value={{ currentUser, login, signup, logout }}>
       <BrowserRouter>
         <NavBar />
-        <AppRoutes />
+        <Routes />
       </BrowserRouter>
     </UserContext.Provider>
   );

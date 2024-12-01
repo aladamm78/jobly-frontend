@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserContext from "../UserContext";
 
 function NavBar() {
@@ -7,20 +7,18 @@ function NavBar() {
 
   return (
     <nav>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/companies">Companies</NavLink>
-      <NavLink to="/jobs">Jobs</NavLink>
+      <Link to="/">Home</Link>
+      <Link to="/companies">Companies</Link>
+      <Link to="/jobs">Jobs</Link>
       {currentUser ? (
         <>
-          <span>Welcome, {currentUser.username}!</span>
-          <NavLink to="/" onClick={logout}>
-            Logout
-          </NavLink>
+          <Link to="/profile">Profile</Link>
+          <button onClick={logout}>Logout</button>
         </>
       ) : (
         <>
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/signup">Signup</NavLink>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Signup</Link>
         </>
       )}
     </nav>

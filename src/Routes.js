@@ -6,6 +6,7 @@ import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import CompanyList from "./components/CompanyList";
 import JobList from "./components/JobList";
+import Profile from "./components/Profile";
 
 
 function AppRoutes() {
@@ -17,7 +18,8 @@ function AppRoutes() {
         <Route path="/jobs" element={<JobList />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignupForm />} />
-      </Routes>
+        <Route path="/profile" element={<Profile />} />
+    </Routes>
   );
 }
 
