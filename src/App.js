@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import AppRoutes from "./Routes";
-import JoblyApi from "./api"; // Ensure JoblyApi is implemented
+import JoblyApi from "./api"; 
 import { jwtDecode } from "jwt-decode";
 import UserContext from "./UserContext";
 
@@ -12,6 +12,7 @@ function App() {
 
   // Fetch user info when token changes
   useEffect(() => {
+    JoblyApi.setToken(token); // Update JoblyApi's token whenever it changes
     async function fetchUser() {
       if (token) {
         try {
