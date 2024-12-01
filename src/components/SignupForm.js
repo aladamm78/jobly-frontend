@@ -1,11 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../UserContext";
+import JoblyApi from "../api"; // Import JoblyApi for API calls
 
-function SignupForm() {
-  const navigate = useNavigate();
-  const { signup } = useContext(UserContext);
-
+const Signup = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -13,98 +10,69 @@ function SignupForm() {
     lastName: "",
     email: "",
   });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((data) => ({ ...data, [name]: value }));
+  };
 
-  const [formErrors, setFormErrors] = useState([]);
-
-  // Handle form input changes
-  function handleChange(evt) {
-    const { name, value } = evt.target;
-    setFormData((data) => ({
-      ...data,
-      [name]: value,
-    }));
-  }
-
-  // Handle form submission
-  async function handleSubmit(evt) {
-    evt.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await signup(formData);
-      navigate("/"); // Redirect to the homepage after successful signup
-    } catch (errors) {
-      setFormErrors(errors);
+      const token = await JoblyApi.registerUser(formData); // Use JoblyApi for the signup request
+      localStorage.setItem("token", token); // Save token to localStorage
+      console.log("Signup successful. Token saved.");
+      navigate("/"); // Redirect to the homepage
+    } catch (err) {
+      console.error("Signup failed:", err);
+      setError("Signup failed. Please try again.");
     }
-  }
+  };
 
   return (
-    <div>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {formErrors.length > 0 && (
-          <div>
-            {formErrors.map((error, idx) => (
-              <p key={idx} style={{ color: "red" }}>
-                {error}
-              </p>
-            ))}
-          </div>
-        )}
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        name="username"
+        value={formData.username}
+        onChange={handleChange}
+        placeholder="Username"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={handleChange}
+        placeholder="Password"
+        required
+      />
+      <input
+        name="firstName"
+        value={formData.firstName}
+        onChange={handleChange}
+        placeholder="First Name"
+        required
+      />
+      <input
+        name="lastName"
+        value={formData.lastName}
+        onChange={handleChange}
+        placeholder="Last Name"
+        required
+      />
+      <input
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        placeholder="Email"
+        required
+      />
+      <button type="submit">Sign Up</button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </form>
   );
-}
+};
 
-export default SignupForm;
+export default Signup;

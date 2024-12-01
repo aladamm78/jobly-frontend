@@ -31,9 +31,15 @@ function App() {
 
   // Login function
   async function login(formData) {
-    const newToken = await JoblyApi.login(formData);
-    setToken(newToken);
+    try {
+      const newToken = await JoblyApi.login(formData);
+      setToken(newToken);
+    } catch (err) {
+      console.error("Login error:", err);
+      throw err; // Pass this back to display in the UI if needed
+    }
   }
+  
 
   // Signup function
   async function signup(formData) {

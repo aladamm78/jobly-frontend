@@ -4,22 +4,30 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 /** API Class.
  *
- * Static class tying together methods used to get/send to to the API.
+ * Static class tying together methods used to get/send to the API.
  * There shouldn't be any frontend-specific stuff here, and there shouldn't
  * be any API-aware stuff elsewhere in the frontend.
- *
  */
 
 class JoblyApi {
-  // the token for interacting with the API will be stored here.
+  // The token for interacting with the API will be stored here.
   static token;
 
+  /** Perform an API request.
+   *
+   * - endpoint: API endpoint to call
+   * - data: Payload for POST/PUT requests
+   * - method: HTTP method ("get", "post", etc.)
+   *
+   * Returns the response data or throws an error.
+   */
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
     // Authorization token passed in headers
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${JoblyApi.token}` };
+    const token = JoblyApi.token || localStorage.getItem("token");
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
     const params = method === "get" ? data : {};
 
     try {
@@ -74,10 +82,15 @@ class JoblyApi {
     const res = await this.request(`users/${username}`);
     return res.user;
   }
+
+  /** Set the token for authenticated requests. */
+  static setToken(newToken) {
+    JoblyApi.token = newToken;
+    localStorage.setItem("token", newToken);
+  }
 }
 
-// Set token for current user
-JoblyApi.token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsYWRhbW03OCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTczMjQwMTA2NX0.6mJIqZ0gpcRd1TbJJvWJmx78wNqbkB1T2r_C9uLqfrc";
+// Dynamically load token from localStorage on app start
+JoblyApi.token = localStorage.getItem("token");
 
 export default JoblyApi;

@@ -1,76 +1,51 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserContext from "../UserContext";
+import JoblyApi from "../api";
 
-function LoginForm() {
+const Login = () => {
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { login } = useContext(UserContext);
 
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((data) => ({ ...data, [name]: value }));
+  };
 
-  const [formErrors, setFormErrors] = useState([]);
-
-  // Handle form input changes
-  function handleChange(evt) {
-    const { name, value } = evt.target;
-    setFormData(data => ({
-      ...data,
-      [name]: value,
-    }));
-  }
-
-  // Handle form submission
-  async function handleSubmit(evt) {
-    evt.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await login(formData);
-      navigate("/"); // Redirect to the homepage after successful login
-    } catch (errors) {
-      setFormErrors(errors);
+      const token = await JoblyApi.loginUser(formData);
+      localStorage.setItem("token", token); // Save the token to localStorage
+      console.log("Login successful. Token saved.");
+      navigate("/");
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError("Invalid username or password.");
     }
-  }
+  };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {formErrors.length > 0 && (
-          <div>
-            {formErrors.map((error, idx) => (
-              <p key={idx} style={{ color: "red" }}>
-                {error}
-              </p>
-            ))}
-          </div>
-        )}
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        name="username"
+        value={formData.username}
+        onChange={handleChange}
+        placeholder="Username"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={handleChange}
+        placeholder="Password"
+        required
+      />
+      <button type="submit">Log In</button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </form>
   );
-}
+};
 
-export default LoginForm;
+export default Login;
