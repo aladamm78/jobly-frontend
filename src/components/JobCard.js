@@ -1,9 +1,7 @@
 import React from "react";
 
 function JobCard({ job }) {
-  if (!job) {
-    return <div>No job data available</div>; // Handle case when job is undefined
-  }
+  if (!job) return <div>No job data available</div>;
 
   const { title, companyName, salary, equity } = job;
 
@@ -16,5 +14,6 @@ function JobCard({ job }) {
     </div>
   );
 }
+
 
 export default JobCard;

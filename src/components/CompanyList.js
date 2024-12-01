@@ -19,18 +19,17 @@ function CompanyList() {
     async function fetchCompanies() {
       try {
         const companies = await JoblyApi.getCompanies();
-        setCompanies(companies || []); // Ensure companies is an array
-        setError(null);
+        setCompanies(companies || []);
       } catch (err) {
         console.error("Error fetching companies:", err);
-        setError("Failed to load companies. Please try again later.");
       } finally {
         setIsLoading(false);
       }
     }
-
+  
     fetchCompanies();
   }, []);
+  
 
   /** Handle search form submission */
   async function search(searchTerm) {
@@ -57,15 +56,9 @@ function CompanyList() {
     <div className="CompanyList">
       <SearchForm search={search} />
       {companies.map((company) => (
-        <CompanyCard
-          key={company.handle}
-          handle={company.handle}
-          name={company.name}
-          description={company.description}
-          logoUrl={company.logoUrl}
-        />
+        <CompanyCard key={company.handle} company={company} />
       ))}
-    </div>
+   </div>
   );
 }
 

@@ -12,18 +12,18 @@ function JobList() {
     async function fetchJobs() {
       try {
         const jobs = await JoblyApi.getJobs();
-        setJobs(jobs || []); // Ensure jobs is an array, even if undefined or null
-        setError(null);
+        setJobs(jobs || []);
       } catch (err) {
-        console.error("Failed to fetch jobs:", err);
+        console.error("Error fetching jobs:", err);
         setError("Failed to load jobs. Please try again later.");
       } finally {
         setIsLoading(false);
       }
     }
-
+  
     fetchJobs();
   }, []);
+  
 
   /** Trigger search on form submission */
   async function search(searchTerm) {
@@ -56,14 +56,7 @@ function JobList() {
     <div className="JobList">
       <SearchForm search={search} />
       {jobs.map((job) => (
-        <JobCard
-          key={job.id}
-          id={job.id}
-          title={job.title}
-          salary={job.salary}
-          equity={job.equity}
-          companyName={job.companyName}
-        />
+        <JobCard key={job.id} job={job} />
       ))}
     </div>
   );
