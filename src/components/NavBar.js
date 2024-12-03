@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import UserContext from "../UserContext";
+import { useUserContext } from "../contexts/UserContext"; // Correct the import
 
 function NavBar() {
-  const { currentUser, logout } = useContext(UserContext);
+  const { currentUser, logout } = useUserContext(); // Use the hook
 
   return (
     <nav>
       <Link to="/">Home</Link>
       <Link to="/companies">Companies</Link>
       <Link to="/jobs">Jobs</Link>
+      <Link to="/profile">Profile</Link> {/* Always show this link */}
       {currentUser ? (
         <>
-          <Link to="/profile">Profile</Link>
           <button onClick={logout}>Logout</button>
         </>
       ) : (

@@ -20,6 +20,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "axios": "^1.7.8",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -28,16 +31,19 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonschema": "^1.2.6",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.3.0",
-    "react-router-dom": "^7.0.1",
-    "react-scripts": "^5.0.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.0.2",
+    "react-scripts": "^5.0.1",
+    "redaxios": "^0.5.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "jest": "^29.7.0",
+    "babel-jest": "^29.7.0",
     "supertest": "^5.0.0-0"
   },
   "browserslist": {
@@ -53,7 +59,3 @@
     ]
   }
 }
-
-
-
-

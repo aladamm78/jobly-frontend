@@ -1,70 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import AppRoutes from "./Routes";
-import JoblyApi from "./api"; 
-import { jwtDecode } from "jwt-decode";
-import UserContext from "./UserContext";
-import Routes from "./Routes";
+import Register from './components/Register';
+import Login from './components/Login';
+import Home from './components/Home';
+import Layout from './components/Layout';
+import Editor from './components/Editor';
+import Admin from './components/Admin';
+import Missing from './components/Missing';
+import Unauthorized from './components/Unauthorized';
+import Lounge from './components/Lounge';
+import LinkPage from './components/LinkPage';
+import RequireAuth from './components/RequireAuth';
+import { Routes, Route } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+
+const ROLES = {
+  'User': 2001,
+  'Editor': 1984,
+  'Admin': 5150
+}
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
-
-  // Fetch user info when token changes
-  useEffect(() => {
-    JoblyApi.setToken(token); // Update JoblyApi's token whenever it changes
-    async function fetchUser() {
-      if (token) {
-        try {
-          const { username } = jwtDecode(token);
-          const user = await JoblyApi.getCurrentUser(username);
-          setCurrentUser(user);
-        } catch (err) {
-          console.error("Failed to fetch user:", err);
-          setCurrentUser(null);
-        }
-      } else {
-        setCurrentUser(null);
-      }
-    }
-    fetchUser();
-  }, [token]);
-
-  // Login function
-  async function login(formData) {
-    try {
-      const newToken = await JoblyApi.login(formData);
-      setToken(newToken);
-    } catch (err) {
-      console.error("Login error:", err);
-      throw err; // Pass this back to display in the UI if needed
-    }
-  }
-  
-
-  // Signup function
-  async function signup(formData) {
-    const token = await JoblyApi.registerUser(formData);
-    JoblyApi.setToken(token);
-    const currentUser = await JoblyApi.getCurrentUser(formData.username);
-    setCurrentUser(currentUser);
-  }
-  
-
-  // Logout function
-  function logout() {
-    setToken(null);
-    setCurrentUser(null);
-  }
 
   return (
-    <UserContext.Provider value={{ currentUser, login, signup, logout }}>
-      <BrowserRouter>
-        <NavBar />
-        <Routes />
-      </BrowserRouter>
-    </UserContext.Provider>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="linkpage" element={<LinkPage />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* we want to protect these routes */}
+        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
+          <Route path="editor" element={<Editor />} />
+        </Route>
+
+
+        <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+          <Route path="admin" element={<Admin />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
+          <Route path="lounge" element={<Lounge />} />
+        </Route>
+
+        {/* catch all */}
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
 }
 
