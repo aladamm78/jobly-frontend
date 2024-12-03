@@ -1,46 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import JoblyApi from "../api";
-import JobCard from "./JobCard";
+import JoblyApi from "../api/api";
 
 function CompanyDetail() {
   const { handle } = useParams();
   const [company, setCompany] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchCompany() {
       try {
-        const companyData = await JoblyApi.getCompany(handle);
-        setCompany(companyData);
-        setError(null);
+        const res = await JoblyApi.getCompany(handle);
+        setCompany(res);
       } catch (err) {
-        console.error("Error fetching company details:", err);
-        setError("Failed to load company details. Please try again later.");
-      } finally {
-        setIsLoading(false);
+        console.error(err);
       }
     }
-
     fetchCompany();
   }, [handle]);
 
-  if (isLoading) return <p>Loading company details...</p>;
-  if (error) return <p className="alert alert-danger">{error}</p>;
+  if (!company) return <div>Loading...</div>;
 
   return (
-    <div className="CompanyDetail">
-      <h2>{company.name}</h2>
+    <div>
+      <h1>{company.name}</h1>
       <p>{company.description}</p>
-      <h3>Jobs</h3>
-      {company.jobs.length > 0 ? (
-        company.jobs.map((job) => (
-          <JobCard key={job.id} job={job} hideCompanyName={true} />
-        ))
-      ) : (
-        <p>No jobs available for this company.</p>
-      )}
+      <div>
+        <h2>Jobs</h2>
+        {company.jobs.map((job) => (
+          <div key={job.id}>
+            <h3>{job.title}</h3>
+            <p>Salary: {job.salary}</p>
+            <p>Equity: {job.equity}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,25 +1,32 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
+import HomePage from "./components/HomePage";
+import CompaniesList from "./components/CompaniesList";
 import CompanyDetail from "./components/CompanyDetail";
-import LoginForm from "./components/LoginForm";
-import SignupForm from "./components/SignupForm";
-import CompanyList from "./components/CompanyList";
-import JobList from "./components/JobList";
+import JobsList from "./components/JobsList";
+import Login from "./components/Login";
+import Register from "./components/Register";
 import Profile from "./components/Profile";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
   return (
     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/companies" element={<CompanyList />} />
-        <Route path="/companies/:handle" element={<CompanyDetail />} />
-        <Route path="/jobs" element={<JobList />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignupForm />} />
-        <Route path="/profile/:username" element={<Profile />} />
-    </Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/companies" element={<CompaniesList />} />
+      <Route path="/companies/:handle" element={<CompanyDetail />} />
+      <Route path="/jobs" element={<JobsList />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/Register" element={<Register />} />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+        />
+      </Routes>
   );
 }
 

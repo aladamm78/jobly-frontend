@@ -1,16 +1,12 @@
 import React from "react";
 
-function JobCard({ job, hideCompanyName = false }) {
-  if (!job) return <div>No job data available</div>;
-
-  const { title, companyName, salary, equity } = job;
-
+function JobCard({ id, title, salary, equity, companyName }) {
   return (
     <div className="JobCard">
-      <h3>{title || "Untitled Position"}</h3>
-      {!hideCompanyName && <p>Company: {companyName || "Unknown Company"}</p>}
-      <p>Salary: {salary !== null ? `$${salary}` : "Not specified"}</p>
-      <p>Equity: {equity !== null ? equity : "None"}</p>
+      <h2>{title}</h2>
+      <p>Company: {companyName}</p>
+      <p>Salary: {salary ? `$${salary}` : "Not specified"}</p>
+      <p>Equity: {equity ? equity : "None"}</p>
     </div>
   );
 }

@@ -1,19 +1,14 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 
-function CompanyCard({ company }) {
-  if (!company) return <div>No company data available</div>;
-
-  const { handle, name, description } = company;
-
+function CompanyCard({ handle, name, description, logoUrl }) {
   return (
     <div className="CompanyCard">
       <Link to={`/companies/${handle}`}>
-        <h3>{name || "Unknown Company"}</h3>
+        <h2>{name}</h2>
+        <p>{description}</p>
+        {logoUrl && <img src={logoUrl} alt={`${name} logo`} />}
       </Link>
-      <p>{description || "No description available"}</p>
-      <p>Handle: {handle || "No handle provided"}</p>
     </div>
   );
 }
