@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import JoblyApi from "../api/api";
-import "../styles/Forms.css"
+import "../styles/Forms.css";
+import "../styles/Titles.css";
 
 
 function Login() {
@@ -29,7 +30,7 @@ function Login() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1 className="page-title">Login</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>Username:</label>
