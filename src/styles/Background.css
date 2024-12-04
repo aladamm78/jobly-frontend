@@ -1,0 +1,18 @@
+/* Background.css */
+body {
+    background-image: url('/home/aladamm78/workspace/react-jobly-two/jobly-frontend/public/images/mountain-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: transparent; /* Ensure no background override */
+}
+

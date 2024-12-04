@@ -1,0 +1,60 @@
+/* HomePage.css */
+
+/* Container Styles */
+.homepage-container {
+    text-align: center;
+    margin: 50px auto;
+    max-width: 800px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  }
+  
+  /* Title Styles */
+  .homepage-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #7fa5c9;
+    margin-bottom: 20px;
+  }
+  
+  /* User Section */
+  .homepage-user-section {
+    margin-top: 20px;
+  }
+  
+  .homepage-greeting {
+    font-size: 1.8rem;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  
+  /* Guest Section */
+  .homepage-guest-section {
+    margin-top: 20px;
+  }
+  
+  .homepage-text {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  /* Button Styles */
+  .homepage-button {
+    background-color: #7fa5c9; /* Button background */
+    color: #ffffff; /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .homepage-button:hover {
+    background-color: #291b8f; /* Darker shade on hover */
+  }
+  

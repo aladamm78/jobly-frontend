@@ -1,0 +1,14 @@
+.page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ffffff; /* Adjust the color as needed */
+    margin: 20px auto; /* Centers the element horizontally */
+    font-weight: bold;
+    padding: 10px 20px; /* Adds padding inside the border */
+    
+    border-radius: 10px; /* Rounds the corners of the border */
+    background-color: #7fa5c9; /* Adds a semi-transparent dark background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a light shadow */
+    display: block; /* Ensures the title is treated as a block element */
+    width: fit-content; /* Adjusts the width to fit the content */
+}
