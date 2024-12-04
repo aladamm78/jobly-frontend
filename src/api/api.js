@@ -125,6 +125,11 @@ class JoblyApi {
     let res = await this.request(`users/${username}/jobs/${jobId}`, {}, "post");
     return res;
   }
+
+  static async getCompany(companyId) {
+    const res = await this.request(`companies/${companyId}`);
+    return res.company;
+  }
 }
 
 // Set an initial token for testing (can be dynamically updated)

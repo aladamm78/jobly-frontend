@@ -14,7 +14,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/companies" element={<CompaniesList />} />
-      <Route path="/companies/:handle" element={<CompanyDetail />} />
+      <Route path="/companies/:companyId" element={<CompanyDetail />} />
       <Route path="/jobs" element={<JobsList />} />
       <Route path="/login" element={<Login />} />
       <Route path="/Register" element={<Register />} />
