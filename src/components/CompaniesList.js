@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import JoblyApi from "../api/api";
 import CompanyCard from "./CompanyCard";
+import "../styles/Titles.css"
+
+
 
 function CompaniesList() {
   const [companies, setCompanies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchCompanies() {
@@ -18,19 +22,23 @@ function CompaniesList() {
     fetchCompanies();
   }, []);
 
+
   const handleSearch = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      const res = await JoblyApi.getCompanies({ nameLike: searchTerm });
+      const res = await JoblyApi.getCompanies({ name: searchTerm });
       setCompanies(res);
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div>
-      <h1>Companies</h1>
+      <h1 className="page-title">Companies</h1>
       <form onSubmit={handleSearch}>
         <input
           type="text"

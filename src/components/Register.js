@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import JoblyApi from "../api/api";
 import { UserContext } from "../context/UserContext";
+import "../styles/Titles.css";
+
 
 function Register() {
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ function Register() {
 
   return (
     <div>
-      <h1>Signup</h1>
+      <h1 className="page-title">Signup</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>Username:</label>

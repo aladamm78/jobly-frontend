@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import JoblyApi from "../api/api";
+import "../styles/Forms.css"
+
 
 function Login() {
   const { login } = useContext(UserContext);

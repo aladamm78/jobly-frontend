@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import JoblyApi from "../api/api";
+import "../styles/Titles.css"
+
 
 function Profile() {
   const { user, setUser } = useContext(UserContext);
@@ -41,8 +43,8 @@ function Profile() {
   
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <div className="profile-container">
+      <h1 className="page-title">Profile</h1>
       <form onSubmit={handleSubmit}>
         <label>First Name:</label>
         <input

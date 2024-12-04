@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import "../styles/NavBar.css";
+
 
 function NavBar() {
   const { user, logout } = useContext(UserContext);
@@ -12,43 +14,29 @@ function NavBar() {
   };
 
   return (
-    <nav>
-      <ul style={{ display: "flex", justifyContent: "space-between", padding: "10px", listStyle: "none", background: "#eee" }}>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-            <Link to="/companies">Companies</Link>
-        </li>
-        <li>    
-            <Link to="/jobs">Jobs</Link>
-        </li>
+    <nav className="navbar">
+      {/* Left Section: Links */}
+      <div className="navbar-links">
+        <Link to="/" className="navbar-link">Home</Link>
+        <Link to="/companies" className="navbar-link">Companies</Link>
+        <Link to="/jobs" className="navbar-link">Jobs</Link>
+        {user && <Link to="/profile" className="navbar-link">Profile</Link>}
+      </div>
 
+      {/* Right Section: Logout or Authentication */}
+      <div className="navbar-right">
         {user ? (
           <>
-            <li>
-              Welcome, {user.username}
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <button onClick={handleLogout} style={{ cursor: "pointer", background: "none", border: "none", color: "blue" }}>
-                Logout
-              </button>
-            </li>
+            <span className="navbar-user">{user.username}</span>
+            <button onClick={handleLogout} className="navbar-button">Logout</button>
           </>
         ) : (
           <>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
+            <Link to="/login" className="navbar-link">Login</Link>
+            <Link to="/register" className="navbar-link">Register</Link>
           </>
         )}
-      </ul>
+      </div>
     </nav>
   );
 }

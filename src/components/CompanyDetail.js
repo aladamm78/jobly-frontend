@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import JoblyApi from "../api/api";
-import { UserContext } from "../context/UserContext"; // Import UserContext
+import { UserContext } from "../context/UserContext"; 
 import JobCard from "./JobCard";
+import "../styles/CompanyDetail.css"; 
+import "../styles/Titles.css";
 
 const CompanyDetail = () => {
   const { companyId } = useParams(); // Get company ID from the URL
@@ -49,11 +51,11 @@ const CompanyDetail = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1>{company.name}</h1>
-      <p>{company.description}</p>
-      <h2>Jobs at {company.name}</h2>
-      <div>
+    <div className="company-details-container">
+      <h1 className="company-details-header">{company.name}</h1>
+      <p className="company-details-description">{company.description}</p>
+      <h2 className="jobs-header">Jobs at {company.name}</h2>
+      <div className="jobs-container">
         {company.jobs.map((job) => (
           <JobCard
             key={job.id}

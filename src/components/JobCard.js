@@ -1,9 +1,10 @@
 import React from "react";
+import "../styles/JobCard.css"
 
 
 function JobCard({ id, title, salary, equity, companyName, hasApplied, onApply }) {
   return (
-    <div className="JobCard">
+    <div className="job-card">
       <h2>{title}</h2>
       <p>Company: {companyName}</p>
       <p>Salary: {salary ? `$${salary}` : "Not specified"}</p>

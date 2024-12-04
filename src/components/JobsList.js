@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react"; // Import useCon
 import JoblyApi from "../api/api";
 import JobCard from "./JobCard";
 import { UserContext } from "../context/UserContext"; // Import UserContext
+import "../styles/Titles.css"
+
 
 function JobsList() {
   const { user } = useContext(UserContext); // Access user from context
@@ -51,7 +53,7 @@ function JobsList() {
 
   return (
     <div>
-      <h1>Jobs</h1>
+      <h1 className="page-title">Jobs</h1>
       <form onSubmit={handleSearch}>
         <input
           type="text"
